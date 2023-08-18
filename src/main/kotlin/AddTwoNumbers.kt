@@ -1,6 +1,6 @@
-class ListNode(var `val`: Int) {
-    var next: ListNode? = null
-}
+//class ListNode(var `val`: Int) {
+//    var next: ListNode? = null
+//}
 
 class Solution {
     fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
