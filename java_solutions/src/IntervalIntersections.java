@@ -20,7 +20,7 @@ public class IntervalIntersections {
             if (start <= end) {
                 result.add(new int[]{start, end});
             }
-            
+
             if (firstList[i][1] <= secondList[j][1]) {
                 i++;
             } else {
