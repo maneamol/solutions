@@ -1,118 +1,109 @@
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayDeque;
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Main {
+
+    private void dateFuntions() {
+        long currentTimeMillis = Instant.now().toEpochMilli();
+        long currentTimemillis = System.currentTimeMillis();
+
+        LocalDate date = LocalDate.parse("2024-02-24");
+        System.out.println("Day " + date.getDayOfMonth());
+        System.out.println("Month " + date.getMonth());
+        System.out.println("Month number " + date.getMonth().getValue());
+        System.out.println("Year " + date.getYear());
+
+        LocalDate startDate = LocalDate.parse("2022-04-24");
+        LocalDate endDate = LocalDate.parse("2023-03-10");
+        Period p = Period.between(startDate, endDate);
+        System.out.println("Day diff " + p.getDays());
+        System.out.println("Month diff " + p.getMonths());
+        System.out.println("Year diff " + p.getYears());
+
+        System.out.println(LocalDate.now());
+    }
+
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+
+        for(String s: strs) {
+            char[] arr = s.toCharArray();
+            Arrays.sort(arr);
+//            String str = String.valueOf(arr);
+            //map.put(s, map.getOrDefault(s, new ArrayList<>()).add(s));
+            map.computeIfAbsent(String.valueOf(arr), k -> new ArrayList<>()).add(s);
+        }
+
+        List<List<String>> res = new ArrayList<List<String>>();
+        for (Map.Entry<String, List<String>> e: map.entrySet()) {
+
+        }
+        return null;
+    }
+
+    public static int minOperationsToOrganize(int[] items) {
+        int operations = 0;
+        int n = items.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            while (items[i] % 2 == items[i + 1] % 2) {
+                if (items[i] > items[i + 1]) {
+                    while (items[i] % 2 == items[i + 1] % 2) {
+                        items[i] /= 2;
+                        operations++;
+                    }
+                } else {
+                    while (items[i] % 2 == items[i + 1] % 2) {
+                        items[i + 1] /= 2;
+                        operations++;
+                    }
+                }
+            }
+        }
+
+        return operations;
+    }
+
+
     public static void main(String[] args) {
-//        System.out.println("Hello world!");
-//        Deque<Integer> deque = new ArrayDeque<>();
-//
-//        deque.add(1);
-//        deque.add(2);
-//        deque.add(3);
-//        deque.addFirst(4);
-//        deque.addLast(5);
-//        System.out.println(deque.peek());
-//        System.out.println(deque.peekLast());
-//        System.out.println(deque.remove());
-//        System.out.println(deque.removeFirst());
-//        System.out.println(deque.removeLast());
+//        int[] items = {4,4,4,4};
+        int[] items = {20,20, 20};
+//        int[] items = {3,3,3};
+        System.out.println(minOperationsToOrganize(items));
+    }
 
+    public boolean reorderedPowerOf2(int n) {
+        char[] number = sortedDigits(n);
+        System.out.println(number);
 
-        // sort map by value and collect to another map
-        Map<String, Integer> unsortedMap = Map.of("a", 1, "cd", 3, "b", 2, "e", 5, "d", 4);
-        System.out.println(unsortedMap);
+        for (int i = 0; i < 30; ++i) {
+            char[] powerOfTwo = sortedDigits(1 << i);
+//            System.out.println(powerOfTwo);
+            if (Arrays.equals(number, powerOfTwo))
+                return true;
+        }
+        return false;
+    }
 
-//        unsortedMap.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(System.out::println);
-
-        Map<String, Integer> sortedMap = unsortedMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue())
-                .collect(
-                        Collectors.toMap(
-                                Map.Entry::getKey,
-                                Map.Entry::getValue,
-                                (oldValue, newValue) -> oldValue,
-                                java.util.LinkedHashMap::new));
-
-
-        Map<String, Integer> sortedMap1 = unsortedMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .collect(
-                        Collectors.toMap(
-                                Map.Entry::getKey,
-                                Map.Entry::getValue,
-                                (oldValue, newValue) -> oldValue,
-                                java.util.LinkedHashMap::new));
-
-
-        Map<Integer, String> swapped = unsortedMap.entrySet()
-                .stream().
-                collect(
-                        Collectors.toMap(
-                                Map.Entry::getValue,
-                                Map.Entry::getKey,
-                                (oldValue, newValue) -> oldValue, java.util.LinkedHashMap::new));
-
-        Map<String, Integer> sortedKey = unsortedMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByKey())
-                .collect(
-                        Collectors.toMap(
-                                Map.Entry::getKey,
-                                Map.Entry::getValue,
-                                (oldValue, newValue) -> oldValue, java.util.LinkedHashMap::new));
-
-        Map<String, Integer> sortedKeyReverse = unsortedMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
-                .collect(
-                        Collectors.toMap(
-                                Map.Entry::getKey,
-                                Map.Entry::getValue,
-                                (oldValue, newValue) -> oldValue, java.util.LinkedHashMap::new));
-
-
-//        System.out.println(sortedMap);
-//        System.out.println(sortedMap);
-//        System.out.println(swapped);
-        System.out.println(sortedKey);
-
-        //.collect(
-        //        java.util.stream.Collectors.toMap(java.util.Map.Entry::getKey, java.util.Map.Entry::getValue, (oldValue, newValue) -> oldValue, java.util.LinkedHashMap::new));
-//        System.out.println(sortedMap);
-
-        // sort map by key and collect to another map
-//        Map<String, Integer> sortedKeyMap = unsortedMap.entrySet()
-//                .stream()
-//                .sorted(Map.Entry.comparingByKey())
-//                .collect(java.util.stream.Collectors.toMap(java.util.Map.Entry::getKey, java.util.Map.Entry::getValue, (oldValue, newValue) -> oldValue, java.util.LinkedHashMap::new));
-//        System.out.println(sortedKeyMap);
-//
-//        // sort map by value in reverse order and collect to another map
-//        Map<String, Integer> sortedReverseValueMap = unsortedMap.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).collect(java.util.stream.Collectors.toMap(java.util.Map.Entry::getKey, java.util.Map.Entry::getValue, (oldValue, newValue) -> oldValue, java.util.LinkedHashMap::new));
-//        System.out.println(sortedReverseValueMap);
-//
-//        // sort map by key in reverse order and collect to another map
-//        Map<String, Integer> sortedReverseKeyMap = unsortedMap.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByKey().reversed()).collect(java.util.stream.Collectors.toMap(java.util.Map.Entry::getKey, java.util.Map.Entry::getValue, (oldValue, newValue) -> oldValue, java.util.LinkedHashMap::new));
-//        System.out.println(sortedReverseKeyMap);
+    private char[] sortedDigits(int n) {
+        char[] digits = String.valueOf(n).toCharArray();
+        Arrays.sort(digits);
+        return digits;
     }
 }
-/*
-unsortedMap.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(System.out::println);
-
-        // sort map by key
-        unsortedMap.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
-
-        // sort map by value in reverse order
-        unsortedMap.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).forEach(System.out::println);
-
-        // sort map by key in reverse order
-        unsortedMap.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByKey().reversed()).forEach(System.out::println);
-
-
- */
