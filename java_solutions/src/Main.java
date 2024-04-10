@@ -82,10 +82,12 @@ public class Main {
 
 
     public static void main(String[] args) {
-//        int[] items = {4,4,4,4};
-        int[] items = {20,20, 20};
-//        int[] items = {3,3,3};
-        System.out.println(minOperationsToOrganize(items));
+        String s = " test     test1";
+        String s1 = "/opt/service/";
+        String[] arr= s1.split("/");
+        int[] items = {4,4,4,4};
+//        List<Integer> l =  Arrays.stream(items).boxed().toList();
+
     }
 
     public boolean reorderedPowerOf2(int n) {

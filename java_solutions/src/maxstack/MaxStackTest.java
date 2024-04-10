@@ -2,6 +2,7 @@ package maxstack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 class Node {
@@ -17,9 +18,9 @@ class Node {
     }
 }
 class MaxStack {
-    TreeMap<Integer, List<Node>> tmap;
-    Node head;
-    Node tail;
+    private TreeMap<Integer, List<Node>> tmap;
+    private final Node head;
+    private final Node tail;
 
     public MaxStack() {
         tmap = new TreeMap<>();
@@ -69,7 +70,7 @@ class MaxStack {
             return -1;
         }
         remove(high);
-        List al = tmap.get(high.data);
+        List<Node> al = tmap.get(high.data);
         al.remove(al.size() - 1 );
         if (al.size() == 0) {
             tmap.remove(high.data);
@@ -99,6 +100,14 @@ class MaxStack {
             tmap.remove(x);
         }
         return x;
+    }
+}
+
+
+public class MaxStackTest {
+    public static void main(String[] args) {
+        MaxStack mx = new MaxStack();
+
     }
 }
 
