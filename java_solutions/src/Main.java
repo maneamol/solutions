@@ -4,6 +4,7 @@ import java.time.Period;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Deque;
 import java.util.HashMap;
@@ -82,11 +83,20 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String s = " test     test1";
-        String s1 = "/opt/service/";
-        String[] arr= s1.split("/");
-        int[] items = {4,4,4,4};
+//        String s = " test     test1";
+//        String s1 = "/opt/service/";
+//        String[] arr= s1.split("/");
+//        int[] items = {4,4,4,4};
 //        List<Integer> l =  Arrays.stream(items).boxed().toList();
+
+//        Map<Integer, Integer> map = new HashMap<>();
+//        for (Map.Entry<Integer, Integer> e : map.entrySet()) {
+//
+//        }
+
+        int[][] points = {{1,1},{2,2},{3,3}};
+        Main m = new Main();
+        m.maxPoints(points);
 
     }
 
@@ -107,5 +117,35 @@ public class Main {
         char[] digits = String.valueOf(n).toCharArray();
         Arrays.sort(digits);
         return digits;
+    }
+
+    public int maxPoints(int[][] points) {
+        int res = 1;
+        double slope = 0;
+        for (int i = 0; i < points.length; i++) {
+            int[] p1 = points[i];
+            Map<Double, Integer> countMap = new HashMap<>();
+            for (int j = i + 1; j < points.length; j++) {
+                int[] p2 = points[j];
+
+                if (p1[0] == p2[0]) {
+                    slope = Double.MAX_VALUE;
+                } else if (p1[1] == p2[1]) {
+                    slope = 0.0;
+                }else {
+                    slope = (double)(p2[1] - p1[1]) / (p2[0] - p1[0]);
+                }
+
+                countMap.put(slope, countMap.getOrDefault(slope, 0) + 1);
+            }
+
+            int max = 0;
+            if (!countMap.isEmpty()) {
+                max = Collections.max(countMap.values());
+            }
+            res = Math.max(res, max + 1);
+        }
+
+        return res;
     }
 }
